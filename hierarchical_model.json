@@ -1,0 +1,153 @@
+{
+    "name": "root",
+    "is_standard_nn": false,
+    "graph": [
+        {
+            "name": "x",
+            "op": "placeholder",
+            "target": "x",
+            "args": [],
+            "kwargs": {}
+        },
+        {
+            "name": "add",
+            "op": "call_function",
+            "target": "<built-in function add>",
+            "args": [
+                "x",
+                "3"
+            ],
+            "kwargs": {}
+        },
+        {
+            "name": "block1",
+            "op": "call_module",
+            "target": "block1",
+            "args": [
+                "add"
+            ],
+            "kwargs": {}
+        },
+        {
+            "name": "unsqueeze",
+            "op": "call_method",
+            "target": "unsqueeze",
+            "args": [
+                "block1",
+                "1"
+            ],
+            "kwargs": {}
+        },
+        {
+            "name": "unsqueeze_1",
+            "op": "call_method",
+            "target": "unsqueeze",
+            "args": [
+                "unsqueeze",
+                "2"
+            ],
+            "kwargs": {}
+        },
+        {
+            "name": "block2",
+            "op": "call_module",
+            "target": "block2",
+            "args": [
+                "unsqueeze_1"
+            ],
+            "kwargs": {}
+        },
+        {
+            "name": "output",
+            "op": "output",
+            "target": "output",
+            "args": [
+                "block2"
+            ],
+            "kwargs": {}
+        }
+    ],
+    "children": {
+        "block1": {
+            "name": "block1",
+            "is_standard_nn": false,
+            "graph": [
+                {
+                    "name": "x",
+                    "op": "placeholder",
+                    "target": "x",
+                    "args": [],
+                    "kwargs": {}
+                },
+                {
+                    "name": "fc",
+                    "op": "call_module",
+                    "target": "fc",
+                    "args": [
+                        "x"
+                    ],
+                    "kwargs": {}
+                },
+                {
+                    "name": "relu",
+                    "op": "call_module",
+                    "target": "relu",
+                    "args": [
+                        "fc"
+                    ],
+                    "kwargs": {}
+                },
+                {
+                    "name": "output",
+                    "op": "output",
+                    "target": "output",
+                    "args": [
+                        "relu"
+                    ],
+                    "kwargs": {}
+                }
+            ],
+            "children": {
+                "fc": {
+                    "name": "block1.fc",
+                    "is_standard_nn": true,
+                    "info": {
+                        "module_class": "torch.nn.modules.linear.Linear",
+                        "attributes": {
+                            "call_super_init": "False",
+                            "dump_patches": "False",
+                            "in_features": "3",
+                            "out_features": "2",
+                            "training": "True"
+                        }
+                    }
+                },
+                "relu": {
+                    "name": "block1.relu",
+                    "is_standard_nn": true,
+                    "info": {
+                        "module_class": "torch.nn.modules.activation.ReLU",
+                        "attributes": {
+                            "call_super_init": "False",
+                            "dump_patches": "False",
+                            "inplace": "False",
+                            "training": "True"
+                        }
+                    }
+                }
+            }
+        },
+        "block2": {
+            "name": "block2",
+            "is_standard_nn": true,
+            "info": {
+                "module_class": "torch.nn.modules.container.Sequential",
+                "attributes": {
+                    "call_super_init": "False",
+                    "dump_patches": "False",
+                    "training": "True"
+                }
+            }
+        }
+    }
+}
